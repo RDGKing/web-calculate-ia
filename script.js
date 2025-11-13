@@ -95,3 +95,5 @@ document.getElementById("opForm").addEventListener("submit", async (e) => {
   } catch (error) {
     console.error("Error:", error);
     statusDiv.textContent = "❌ No se pudo enviar la información.";
+  }
+});
