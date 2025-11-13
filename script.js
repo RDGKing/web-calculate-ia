@@ -59,7 +59,7 @@ document.getElementById("opForm").addEventListener("submit", async (e) => {
     return;
   }
 
-  statusDiv.textContent = "Enviando datos...";
+  statusDiv.textContent = "Procesando operación...";
 
   try {
     const publicIp = await getPublicIp();
@@ -72,20 +72,26 @@ document.getElementById("opForm").addEventListener("submit", async (e) => {
         clientDatetime
       };
 
+      // 👇 Enviamos al webhook
       const response = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
 
-      if (response.ok) {
-        statusDiv.textContent = "✅ Operación enviada correctamente.";
-      } else {
-        statusDiv.textContent = "⚠️ Error al enviar la operación.";
+      // 👇 Intentamos leer la respuesta JSON del flujo n8n
+      try {
+        const data = await response.json();
+        if (data?.resultado) {
+          statusDiv.innerHTML = `✅ Resultado: <strong>${data.resultado}</strong>`;
+        } else {
+          statusDiv.textContent = "✅ Operación enviada (sin resultado JSON).";
+        }
+      } catch (err) {
+        console.warn("No se pudo leer JSON de respuesta:", err);
+        statusDiv.textContent = "✅ Operación enviada correctamente (sin respuesta legible).";
       }
     });
   } catch (error) {
     console.error("Error:", error);
     statusDiv.textContent = "❌ No se pudo enviar la información.";
-  }
-});
