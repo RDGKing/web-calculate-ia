@@ -1,7 +1,7 @@
 // =======================
 // CONFIGURA TU WEBHOOK
 // =======================
-const WEBHOOK_URL = "https://angelrodrigo.app.n8n.cloud/webhook/Operacion"; 
+const WEBHOOK_URL = "https://angelrodrigo.app.n8n.cloud/webhook-test/Operacion"; 
 
 // =======================
 // OBTENER IPs DEL CLIENTE
