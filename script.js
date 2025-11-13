@@ -1,6 +1,3 @@
-// =======================
-// CONFIGURA TU WEBHOOK
-// =======================
 const WEBHOOK_URL = "https://angelrodrigo.app.n8n.cloud/webhook/Operacion";
 
 // =======================
